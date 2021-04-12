@@ -1,0 +1,77 @@
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+<script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"type="text/javascript" charset="utf-8"></script>
+<script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"type="text/javascript" charset="utf-8"></script>
+<script src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css"href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+</head>
+
+<body style='margin: 0'>
+<div style="width: 100%; height: 100%" id="mapContainer"></div>
+
+<script>
+      // Initialize the platform object:
+      var platform = new H.service.Platform({
+        'apikey': 'aVMqS-PM6nXXo6jILzt-fyMoxFISZK_dbvKkflaP3f8'
+      });
+
+	   const lat = 31.6340;
+	   const long = 74.8723;
+
+	// Obtain the default map types from the platform object
+      var maptypes = platform.createDefaultLayers();
+
+      // Initialize a map:
+      var map = new H.Map(
+        document.getElementById('mapContainer'),
+        maptypes.raster.terrain.map,
+        {
+          zoom: 5,
+          center: { lat: lat, lng: long }
+        });
+
+	// Enable the event system on the map instance:
+	  var mapEvents = new H.mapevents.MapEvents(map);
+
+	// Add event listener:
+	  map.addEventListener('tap', function(evt) {
+    // Log 'tap' and 'mouse' events:
+      console.log(evt.type, evt.currentPointer.type);
+});
+
+	// Instantiate the default behavior, providing the mapEvents object:
+	 var behavior = new H.mapevents.Behavior(mapEvents);
+
+	//window.addEventListener('resize',()=> get.ViewProt().resize())
+	var marker = new H.map.Marker({ lat: lat, lng: long });
+
+	// Add the marker to the map:
+	map.addObject(marker);
+
+	// Create the default UI:
+	var ui = H.ui.UI.createDefault(map, maptypes);
+
+// Create an info bubble object at a specific geographic location:
+var bubble1 = new H.ui.InfoBubble({ lng:74.3587, lat:31.5204    }, {
+                content: '<b>LAHORE: Pakistani politicians marched in Lahore and across Pakistan, calling for Pakistan to "crush India" </b>'
+             });
+var bubble2 = new H.ui.InfoBubble({ lng:78.0081, lat:27.1767    }, {
+                content: '<b>AGRA:On the evening of 3 December, at about 17:40, the Pakistan Air Force (PAF) launched surprise pre-emptive strikes on eleven airfields in north-western India, including Agra, which was 480 kilometres (300 mi) from the border. </b>'});
+var bubble3 = new H.ui.InfoBubble({ lng:90.4125, lat:23.8103  }, {
+                content: '<b> DHAKA: The main Indian objective on the Eastern front was to capture Dacca </b>'});
+
+
+
+// Add info bubble to the UI:
+ui.addBubble(bubble1);
+ui.addBubble(bubble2);
+ui.addBubble(bubble3);
+
+
+
+
+</script>
+</body>
+</html>

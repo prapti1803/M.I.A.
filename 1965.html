@@ -1,0 +1,90 @@
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+<script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"type="text/javascript" charset="utf-8"></script>
+<script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"type="text/javascript" charset="utf-8"></script>
+<script src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css"href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+</head>
+
+<body style='margin: 0'>
+<div style="width: 100%; height: 100%" id="mapContainer"></div>
+
+<script>
+      // Initialize the platform object:
+      var platform = new H.service.Platform({
+        'apikey': 'aVMqS-PM6nXXo6jILzt-fyMoxFISZK_dbvKkflaP3f8'
+      });
+
+	   const lat = 34.0881;
+	   const long = 74.0340;
+
+	// Obtain the default map types from the platform object
+      var maptypes = platform.createDefaultLayers();
+
+      // Initialize a map:
+      var map = new H.Map(
+        document.getElementById('mapContainer'),
+        maptypes.raster.terrain.map,
+        {
+          zoom: 8,
+          center: { lat: lat, lng: long }
+        });
+
+	// Enable the event system on the map instance:
+	  var mapEvents = new H.mapevents.MapEvents(map);
+
+	// Add event listener:
+	  map.addEventListener('tap', function(evt) {
+    // Log 'tap' and 'mouse' events:
+      console.log(evt.type, evt.currentPointer.type);
+});
+
+	// Instantiate the default behavior, providing the mapEvents object:
+	 var behavior = new H.mapevents.Behavior(mapEvents);
+
+	//window.addEventListener('resize',()=> get.ViewProt().resize())
+	var marker = new H.map.Marker({ lat: lat, lng: long });
+
+	// Add the marker to the map:
+	map.addObject(marker);
+
+	// Create the default UI:
+	var ui = H.ui.UI.createDefault(map, maptypes);
+
+// Create an info bubble object at a specific geographic location:
+var bubble1 = new H.ui.InfoBubble({ lng: 74.5126, lat:31.4768  }, {
+                content: '<b>BATTLE OF BURKI:These developments brought the Indian Army within the range of Lahore International Airport. </b>'
+             });
+var bubble2 = new H.ui.InfoBubble({ lng:74.7425, lat:32.8995  }, {
+                content: '<b> AKHNOOR: On 1 September 1965, Pakistan launched a counterattack, called Operation Grand Slam, with the objective to capture the vital town of Akhnoor in Jammu, which would sever communications and cut off supply routes to Indian troops.</b>'});
+var bubble3 = new H.ui.InfoBubble({ lng:73.7728, lat:34.3916  }, {
+                content: '<b> TITHWAL</b>'});
+var bubble4 = new H.ui.InfoBubble({ lng: 74.3499, lat:34.1990  }, {
+                content: '<b> NOV 9,1947- BARAMULLAH Recaptured</b>'});
+var bubble5 = new H.ui.InfoBubble({ lng: 74.0340, lat:34.0881 }, {
+                content: '<b> MAY 7 ,1947-URI recaptured</b>'});
+var bubble6 = new H.ui.InfoBubble({ lng: 74.08401990093815, lat:33.97949597805813 }, {
+                content: '<b> HAJI PIR PASS:India had captured the Haji Pir pass, 8 km into Pakistan administered Kashmir.</b>'});
+var bubble7 = new H.ui.InfoBubble({ lng:74.0924, lat:33.7670 }, {
+                content: '<b> PUNCH</b>'});
+
+
+
+// Add info bubble to the UI:
+ui.addBubble(bubble1);
+ui.addBubble(bubble2);
+ui.addBubble(bubble3);
+ui.addBubble(bubble4);
+ui.addBubble(bubble5);
+ui.addBubble(bubble6);
+ui.addBubble(bubble7);
+
+
+
+
+
+</script>
+</body>
+</html>
